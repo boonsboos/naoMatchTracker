@@ -10,10 +10,17 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 public class Main {
+
+    public void makeDir() throws IOException {
+        String b = System.getProperty("user.dir") + "\\trackerfiles";
+        boolean a = new File(b).mkdir();
+        boolean c = new File(b+"\\timespent.db").createNewFile();
+    }
 
     public JTextField textField = new JTextField("");
     public JFrame window = new JFrame("naoMatchTracker");
@@ -27,6 +34,9 @@ public class Main {
     public String h = "";
 
     public Main() throws IOException {
+
+        makeDir();
+
         window.setSize(500,400);
         Dimension a = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(((a.width - window.getSize().width)/2), ((a.height - window.getSize().height)/2));
