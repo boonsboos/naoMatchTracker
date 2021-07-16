@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+jar {
+    java.sourceCompatibility = JavaVersion.VERSION_16
+    archiveBaseName = "naoMatchTracker"
+    archiveVersion = "1.0"
+    manifest({
+        attributes(
+                'Main-Class': 'me.mrsherobrine.naomatchtracker.Main'
+        )
+    })
+}
