@@ -5,7 +5,7 @@ simple java program to keep track of how long you've spent playing online matche
 - Java 16
 
 ## How to run
-Open a new command prompt in the folder where the .jar is. type in ``javaw -jar nameofmatchtrackerfile.jar && exit``. It'll now open. (No, it won't work in powershell.) If you're too lazy to do that each time: I'll provide an executable script that does this for you.
+Open a new command prompt in the folder where the .jar is. type in ``java -jar nameofmatchtrackerfile.jar && exit``. It'll now open. (No, it won't work in powershell.) If you're too lazy to do that each time: I'll provide an executable script that does this for you.
 
 ## License
 
