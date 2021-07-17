@@ -1,5 +1,5 @@
 # naoMatchTracker
-simple java program to keep track of how long you've spent playing online matches in a game
+simple java program so you can keep track of how long you've spent playing online matches in a game
 
 ## Requirements
 - Java 16
