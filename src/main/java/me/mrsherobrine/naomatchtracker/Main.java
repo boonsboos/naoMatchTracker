@@ -1,7 +1,7 @@
 package me.mrsherobrine.naomatchtracker;
 
 /*
-    this program is made by github.com/mrsherobrine
+    this program is made by https://github.com/mrsherobrine
     please read the licensing information in the readme
     thanks for using my tool
  */
@@ -13,13 +13,24 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class Main {
 
-    public void makeDir() throws IOException {
+    public void makeStuff() throws IOException {
         String b = System.getProperty("user.dir") + "\\trackerfiles";
         boolean a = new File(b).mkdir();
         boolean c = new File(b+"\\timespent.db").createNewFile();
+        String d = b.replace("\\", "\\\\");
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + d +"\\\\timespent.db");
+             PreparedStatement createQuery = conn.prepareStatement("CREATE TABLE IF NOT EXISTS \"time\" (\"timespent\" INTEGER);")) {
+            createQuery.execute();
+        } catch (SQLException ea) {
+            ea.printStackTrace();
+        }
     }
 
     public JTextField textField = new JTextField("");
@@ -33,9 +44,9 @@ public class Main {
     public String totalDurationToStopWipingItEveryButtonClick = "Total time spent in game: ";
     public String h = "";
 
-    public Main() throws IOException {
+    public Main() throws Exception {
 
-        makeDir();
+        makeStuff();
 
         window.setSize(500,400);
         Dimension a = Toolkit.getDefaultToolkit().getScreenSize();
@@ -66,6 +77,9 @@ public class Main {
         howtoLabel.setBackground(new Color(0x212121));
         howtoLabel.setForeground(Color.white);
 
+        totalLabel.setText(totalDurationToStopWipingItEveryButtonClick + DatabaseMagic.databaseMagicTotal() + " hours");
+        averageLabel.setText(averageDurationToStopDeletionBecauseIAmLazy + DatabaseMagic.databaseMagicAverage() + " minutes");
+
         cp.setLayout(null);
         cp.setBackground(new Color(0x212121));
         cp.add(button);
@@ -79,7 +93,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             new Main();
-        } catch (IOException exc) {
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
     }
@@ -89,8 +103,8 @@ public class Main {
             h = textField.getText();
             if (!h.contains(":")) throw new Error();
             DatabaseMagic.databaseMagicInsert(h);
-            System.out.println(DatabaseMagic.databaseMagicTotal(h) + " from main");
-            System.out.println(DatabaseMagic.databaseMagicAverage(h) + " from main");
+            totalLabel.setText(totalDurationToStopWipingItEveryButtonClick + DatabaseMagic.databaseMagicTotal() + " hours");
+            averageLabel.setText(averageDurationToStopDeletionBecauseIAmLazy + DatabaseMagic.databaseMagicAverage() + " minutes");
             textField.setText("");
             howtoLabel.setText("Input your match time in mm:ss format here ^");
             howtoLabel.setForeground(Color.white);
