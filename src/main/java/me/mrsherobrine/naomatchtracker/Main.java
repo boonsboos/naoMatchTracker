@@ -76,10 +76,13 @@ public class Main {
         howtoLabel.setBounds(48, 304, 400, 33);
         howtoLabel.setBackground(new Color(0x212121));
         howtoLabel.setForeground(Color.white);
-
-        totalLabel.setText(totalDurationToStopWipingItEveryButtonClick + DatabaseMagic.databaseMagicTotal() + " hours");
-        averageLabel.setText(averageDurationToStopDeletionBecauseIAmLazy + DatabaseMagic.databaseMagicAverage() + " minutes");
-
+        try {
+            totalLabel.setText(totalDurationToStopWipingItEveryButtonClick + DatabaseMagic.databaseMagicTotal() + " hours");
+            averageLabel.setText(averageDurationToStopDeletionBecauseIAmLazy + DatabaseMagic.databaseMagicAverage() + " minutes");
+        } catch (ArithmeticException ae) {
+            totalLabel.setText("No total found yet!");
+            averageLabel.setText("No average found yet!");
+        }
         cp.setLayout(null);
         cp.setBackground(new Color(0x212121));
         cp.add(button);
